@@ -1,0 +1,181 @@
+/* DEVELOPMENT */
+
+#photos {
+  /* display: none; */
+}
+
+/* END DEVELOPMENT */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  overflow: hidden;
+  color: white;
+}
+
+#content {
+  /*background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9)), url('IMG_0152.JPG');*/
+  background-size: cover;
+}
+
+#clock,
+#weathernow {
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+
+  font-size: 100px;
+  font-family: "Oswald", arial;
+  font-weight: 500;
+  font-color: white;
+  text-shadow: 6px 6px 2px black;
+}
+
+#clock {
+  left: 20px;
+}
+
+#weathernow {
+  right: 20px;
+}
+
+#todo {
+  position: absolute;
+  z-index: 1;
+  top: 135px;
+  right: 0px;
+  width: 200px;
+}
+
+#todo table {
+  font-size: 20px;
+  /*font-family: 'Oswald', arial;*/
+  font-weight: 300;
+  font-color: white;
+  text-shadow: 2px 2px 2px black;
+
+  padding-top: 20px;
+  background-color: rgba(200, 200, 200, 0.5);
+  border-radius: 10px 0 0 10px;
+  list-style-type: none;
+}
+
+#todo td {
+  line-height: 25px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+#photos {
+  height: 720px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#photos img {
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  margin: auto;
+}
+
+#calendarmonth {
+  width: 1080px;
+  height: 1030px;
+  position: relative;
+  top: -24px;
+}
+
+#fullcalendar {
+  overflow: hidden;
+}
+
+.fc-event {
+  font-size: 1em;
+}
+
+/*#fullcalendar .fc-today {*/
+/*.fc-unthemed td.fc-today{*/
+.fc-unthemed .fc-today {
+  background: "red" !important;
+}
+
+.fc-today .fc-day-number {
+  color: black;
+}
+
+.fc-dayGrid-view .fc-day-number {
+  font-size: 2em;
+  font-weight: 700;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* background-color: rgba(200, 200, 200, 0.5); */
+  border-radius: 50%;
+}
+
+#calendarweekwrapper {
+  width: 1080px;
+  height: 170px;
+  position: relative;
+  bottom: 0;
+  left: 15px;
+}
+
+#calendarweek {
+  width: 1080px;
+  height: 170px;
+}
+
+#calendarweek .weekday {
+  width: 14.285714285714285714285714285714%;
+  *width: 14.285714285714285714285714285714%;
+  height: 170px;
+  text-align: center;
+  border: 1px solid white;
+}
+
+#calendarweek .mealfred {
+  height: 50px;
+  margin-top: 30px;
+  border-radius: 25%;
+}
+
+.meals p {
+  text-align: center;
+  margin: 10px auto;
+  font-weight: 500;
+  font-size: 16px;
+  /*text-shadow: 1px 1px 1px white;*/
+}
+
+.weather {
+  position: absolute;
+  margin: 0 auto 5px;
+  bottom: 10px;
+  width: 150px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.low,
+.high {
+  border-radius: 40%;
+  padding: 5px;
+}
+
+.skycon {
+  height: 40px;
+  margin: 0 5px;
+  position: relative;
+  top: -2px;
+}
