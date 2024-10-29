@@ -9,6 +9,8 @@ function getUrlParameter(name) {
 
 // getUrlParameter('move')
 
+var albumURL = getUrlParameter("albumURL");
+
 var calendars = {
   "brianpersonal":getUrlParameter("brianpersonal"),
   "brianwork":getUrlParameter("brianwork"),
@@ -48,6 +50,69 @@ function updateTime(k) {
 }
 
 currentTime();
+
+
+
+
+
+async function populateImage() {
+  const dashboardPhotos = "uZRaNk7rrzZ4hWNHA";
+  const dashboardAmelia = "grsRiadhvHpKpXqw7";
+  const dashboardMadilyn = "JN35RfoyCBgxgj4bA";
+  const dashboardDavid = "VfrD3JYGswWZ54Ko6";
+  const dashboardHalloween = "Yr2UDv5EBQBtNiUu8";
+  const dashboardThanksgiving= "Vfx3sepjXEx3ShDz6"
+  const dashboardChristmas = "amxn19hu7cNmZe326";
+
+  let d = new Date();
+  let currentMonth = d.getMonth();
+
+  let dashboardStr;
+
+  switch(currentMonth+1) {
+    case 4:
+      dashboardStr = dashboardDavid;
+      break;
+    case 6:
+      dashboardStr = dashboardMadilyn;
+      break;
+    case 7: 
+      dashboardStr = dashboardAmelia;
+      break;
+    case 10:
+      dashboardStr = dashboardHalloween;
+      break;
+    case 11:
+      dashboardStr = dashboardThanksgiving;
+      break;
+    case 12: 
+      dashboardStr = dashboardChristmas;
+      break;
+    default:
+      dashboardStr = dashboardPhotos;
+  }
+
+  // override
+  dashboardStr = dashboardPhotos;
+
+  const url = 'https://corsproxy.io/?' + encodeURIComponent("https://mueller-express.onrender.com/?albumURL=https://photos.app.goo.gl/" + dashboardStr);
+  // const url = 'https://corsproxy.io/?' + "https://mueller-express.onrender.com/?albumURL=https://photos.app.goo.gl/" + dashboardStr;
+  console.log(url)
+  const gPhotosData = await fetch(url)
+  .then(function(response) {
+    console.log(response.json())
+    return response.json();
+  });
+
+  console.log(gPhotosData)
+  let imageURL = gPhotosData["URL"];
+  $("#photos img").attr("src",imageURL+"=w1080");
+}
+populateImage();
+
+
+
+
 
 async function populateList() {
   // loading();
@@ -254,7 +319,7 @@ populateMeals();
 
 
 function populateWeather() {
-  fetch('https://api.openweathermap.org/data/2.5/onecall?lat=40.637490&lon=-74.032470&appid=041ec563cb52ce12681a70019fd9bf24&units=imperial')  
+  fetch('https://api.openweathermap.org/data/3.0/onecall?lat=40.637490&lon=-74.032470&appid=eb9b134a06995b47a1d406b24cbea580&units=imperial')  
   .then(function(resp) { return resp.json() }) // Convert data to json
   .then(function(res) {
     let tempNow = res.current.temp;
