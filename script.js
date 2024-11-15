@@ -9,6 +9,26 @@ function getUrlParameter(name) {
 
 // getUrlParameter('move')
 
+let chefColors = {};
+
+// example: "#FFBB3D" --> "black"
+function getTextColorForBackground(hex) {
+  // Convert hex to RGB
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+  // Calculate relative luminance (sRGB formula)
+  const luminance = (value) => {
+      return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+  };
+  
+  const luminanceValue = 0.2126 * luminance(r) + 0.7152 * luminance(g) + 0.0722 * luminance(b);
+
+  // Return white or black text based on luminance threshold
+  return luminanceValue > 0.5 ? 'black' : 'white';
+}
+
 var albumURL = getUrlParameter("albumURL");
 
 var calendars = {
@@ -108,7 +128,7 @@ async function populateImage() {
   let imageURL = gPhotosData["URL"];
   $("#photos img").attr("src",imageURL+"=w1080");
 }
-populateImage();
+// populateImage();
 
 
 
@@ -258,6 +278,12 @@ function loadFullCalendar(){
       }
     });
 
+    const eventSources = calendar.getOption('eventSources');
+    chefColors["Brian"] = eventSources.find(source => source.className === 'brianpersonal').color;
+    chefColors["Emily"] = eventSources.find(source => source.className === 'emilypersonal').color;
+    chefColors["B & E"] = eventSources.find(source => source.className === 'brianemily').color;
+    // console.log(chefColors["Brian"]);
+
     calendar.render();
     
   });
@@ -295,6 +321,8 @@ async function populateMeals() {
     return response.json();
   });
 
+  console.log(chefColors) // {Brian: '#FFBB3D', Emily: '#124e89', B & E: '#3e8948'}
+  
   if(jsonStore.calendar != null){
     calendarHash = jsonStore.calendar;
     for(var day in calendarHash){
@@ -304,6 +332,14 @@ async function populateMeals() {
       if(meals.length > 0){
         for(let i = 0; i < meals.length; i++){
           targetDay.innerHTML += `<p>${meals[i]}</p>`;
+          
+          let chef = calendarHash[day].chef;
+          if(chef) {
+            let chefColor = chefColors[chef];
+            let chefTextColor = getTextColorForBackground(chefColor);
+            targetDay.style.color = chefTextColor;
+            targetDay.style.backgroundColor = chefColor;
+          }
         }
       } else {
         targetDay.innerHTML += `<img src="mealfred-logo-white-sm.png" class="mealfred">`;
